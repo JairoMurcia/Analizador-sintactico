@@ -1,0 +1,306 @@
+package cod;
+
+import java_cup.runtime.*;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal Linea,Main,Parentesis_a,Parentesis_c,Llave_a,Llave_c,Corchete_a,Corchete_c,Coma,Punto,Dos_puntos,Punto_coma,Numeral,Int,Double,Float,Long
+,Short,Void,Unsi,Signed,Enum,Boolean,Char,string,Union,Struct,If,Else,Do,While,Switch,Case,Default,For,Break,Goto,Igual,Suma,Resta,Multiplicacion,Division,Modulo,Op_y,Op_o,
+Op_negacion,Op_xor,Mayor_que,Menor_que,Igual_que,Diferente_que,Mayor_o_igual,Menor_o_igual,Suma_igual,Resta_igual,Mul_igual,Div_igual,Mod_igual,
+Incremento,Decremento,True,False,Include,Define,Y_bit,O_bit,Nul,Asi_apu,Identificador,Libreria,Numero,Real,Str,Ch;
+
+non terminal INICIO, SENTENCIA, DECLARACION,DECLARACION_STRUCT,LISTA, DECLARACION_FOR, IF, IF_ELSE,
+    WHILE, DO_WHILE, FOR,BOOL, SENTENCIA_BOOLEANA, SENTENCIA_FOR,IMPORTAR,ARITMETICA,
+    SENTENCIA_SWITCH,SENTENCIA_CASE,SENTENCIA_PARAMETROS;
+
+
+
+INICIO ::= 
+    Int Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c |
+    Main Parentesis_a Parentesis_c Llave_a SENTENCIA Llave_c|
+    Int Main Parentesis_a Parentesis_c Llave_a Linea SENTENCIA Linea Llave_c |
+    Main Parentesis_a Parentesis_c Llave_a Linea SENTENCIA Linea Llave_c
+;
+SENTENCIA ::= 
+   DECLARACION|
+   DECLARACION_STRUCT|
+   DECLARACION_FOR|
+   IF|
+   IF_ELSE|
+   WHILE|
+   DO_WHILE|
+   FOR|
+   SENTENCIA_BOOLEANA|
+   SENTENCIA_FOR|
+   SENTENCIA_SWITCH|
+   SENTENCIA_PARAMETROS 
+   
+    
+;
+
+IMPORTAR ::=
+    Numeral Include Menor_que Libreria Mayor_que Linea
+;
+DECLARACION ::=
+    
+    Int Identificador Igual Numero Punto_coma|
+    Int Identificador Igual Identificador Punto_coma|
+    Int Identificador Igual ARITMETICA Punto_coma|
+    Int Identificador Punto_coma|
+    Long Int Identificador Igual Numero Punto_coma |
+    Long Int Identificador Igual Identificador Punto_coma| 
+    Long Int Identificador Igual ARITMETICA Punto_coma|
+    Long Int Identificador Punto_coma|
+    Short Int Identificador Igual Numero Punto_coma |
+    Short Int Identificador Igual Identificador Punto_coma|
+    Short Int Identificador Igual ARITMETICA Punto_coma| 
+    Short Int Identificador Punto_coma|
+    Long  Identificador Igual Numero Punto_coma|
+    Long  Identificador Igual Identificador Punto_coma |
+    Long Identificador Igual ARITMETICA Punto_coma|
+    Long  Identificador Punto_coma|
+    Short  Identificador Igual Numero Punto_coma| 
+    Short  Identificador Igual Identificador Punto_coma|
+    Short Identificador Igual ARITMETICA Punto_coma|
+    Short  Identificador Punto_coma|
+    Signed Int Identificador Igual Numero Punto_coma|
+    Signed Int Identificador Igual Identificador Punto_coma|
+    Signed Int Identificador Igual ARITMETICA Punto_coma|
+    Signed Int Identificador Punto_coma|
+    Signed Long Int Identificador Igual Numero Punto_coma |
+    Signed Long Int Identificador Igual Identificador Punto_coma| 
+    Signed Long Int Identificador Igual ARITMETICA Punto_coma|
+    Signed Long Int Identificador Punto_coma|
+    Signed Short Int Identificador Igual Numero Punto_coma |
+    Signed Short Int Identificador Igual Identificador Punto_coma|
+    Signed Short Int Identificador Igual ARITMETICA Punto_coma| 
+    Signed Short Int Identificador Punto_coma|
+    Signed Long  Identificador Igual Numero Punto_coma|
+    Signed Long  Identificador Igual Identificador Punto_coma |
+    Signed Long Identificador Igual ARITMETICA Punto_coma|
+    Signed Long  Identificador Punto_coma|
+    Signed Short  Identificador Igual Numero Punto_coma| 
+    Signed Short  Identificador Igual Identificador Punto_coma|
+    Signed Short Identificador Igual ARITMETICA Punto_coma|
+    Signed Short  Identificador Punto_coma|
+    Unsi Int Identificador Igual Numero Punto_coma|
+    Unsi Int Identificador Igual Identificador Punto_coma|
+    Unsi Int Identificador Igual ARITMETICA Punto_coma|
+    Unsi Int Identificador Punto_coma|
+    Unsi Long Int Identificador Igual Numero Punto_coma |
+    Unsi Long Int Identificador Igual Identificador Punto_coma| 
+    Unsi Long Int Identificador Igual ARITMETICA Punto_coma|
+    Unsi Long Int Identificador Punto_coma|
+    Unsi Short Int Identificador Igual Numero Punto_coma |
+    Unsi Short Int Identificador Igual Identificador Punto_coma|
+    Unsi Short Int Identificador Igual ARITMETICA Punto_coma| 
+    Unsi Short Int Identificador Punto_coma|
+    Unsi Long  Identificador Igual Numero Punto_coma|
+    Unsi Long  Identificador Igual Identificador Punto_coma |
+    Unsi Long Identificador Igual ARITMETICA Punto_coma|
+    Unsi Long  Identificador Punto_coma|
+    Unsi Short  Identificador Igual Numero Punto_coma| 
+    Unsi Short  Identificador Igual Identificador Punto_coma|
+    Unsi Short Identificador Igual ARITMETICA Punto_coma|
+    Unsi Short  Identificador Punto_coma|
+    Signed Identificador Igual Numero Punto_coma|
+    Signed Identificador Igual Real Punto_coma|
+    Signed Identificador Igual Identificador Punto_coma|
+    Signed Identificador Igual ARITMETICA Punto_coma|
+    Signed Identificador Punto_coma|
+    Unsi Identificador Igual Numero Punto_coma|
+    Unsi Identificador Igual Real Punto_coma|
+    Unsi Identificador Igual Identificador Punto_coma|
+    Unsi Identificador Igual ARITMETICA Punto_coma|
+    Unsi Identificador Punto_coma|
+    Double Identificador Igual Numero Punto_coma|
+    Double Identificador Igual Real Punto_coma|
+    Double Identificador Igual Identificador Punto_coma|
+    Double Identificador Igual ARITMETICA Punto_coma|
+    Double Identificador Punto_coma|
+    Long Double Identificador Igual Numero Punto_coma |
+    Long Double Identificador Igual Real Punto_coma |
+    Long Double Identificador Igual Identificador Punto_coma| 
+    Long Double Identificador Igual ARITMETICA Punto_coma|
+    Long Double Identificador Punto_coma|
+    Float Identificador Igual Numero Punto_coma|
+    Float Identificador Igual Real Punto_coma|
+    Float Identificador Igual Identificador Punto_coma|
+    Float Identificador Igual ARITMETICA Punto_coma|
+    Float Identificador Punto_coma|
+    Char Identificador Igual Ch Punto_coma|
+    Char Identificador Igual Identificador Punto_coma|
+    Char Identificador Punto_coma|
+    Signed Char Identificador Igual Ch Punto_coma|
+    Signed Char Identificador Igual Identificador Punto_coma|
+    Signed Char Identificador Punto_coma|
+    Unsi Char Identificador Igual Ch Punto_coma|
+    Unsi Char Identificador Igual Identificador Punto_coma|
+    Unsi Char Identificador Punto_coma|
+    Signed Identificador Igual Ch Punto_coma|
+    Unsi Identificador Igual Ch Punto_coma|
+    string Identificador Igual Str Punto_coma|  
+    string Identificador Igual Identificador Punto_coma
+    
+;
+
+FOR ::=
+    For Parentesis_a SENTENCIA_FOR Parentesis_c Llave_a SENTENCIA Llave_c 
+;
+SENTENCIA_FOR ::=
+    Int Identificador Igual Numero Punto_coma SENTENCIA_BOOLEANA Punto_coma ARITMETICA |
+    Short Int Identificador Igual Numero Punto_coma SENTENCIA_BOOLEANA Punto_coma ARITMETICA |
+    Long Int Identificador Igual Numero Punto_coma SENTENCIA_BOOLEANA Punto_coma ARITMETICA |
+    Identificador Igual Numero Punto_coma SENTENCIA_BOOLEANA Punto_coma ARITMETICA|
+    Identificador  Punto_coma SENTENCIA_BOOLEANA Punto_coma ARITMETICA
+;
+IF ::=
+    If Parentesis_a SENTENCIA_BOOLEANA Parentesis_c Llave_a SENTENCIA Llave_c 
+;
+ARITMETICA ::=
+    Identificador Suma Identificador
+;
+SENTENCIA_BOOLEANA ::=
+    BOOL Op_y BOOL|
+    BOOL Op_o BOOL|
+    BOOL Op_xor BOOL|
+    Op_negacion SENTENCIA_BOOLEANA|
+    Op_negacion Parentesis_a SENTENCIA_BOOLEANA Parentesis_c|
+
+    Parentesis_a BOOL Parentesis_c Op_y BOOL|
+    Parentesis_a BOOL Parentesis_c Op_o BOOL|
+    Parentesis_a BOOL Parentesis_c Op_xor BOOL|
+
+    Parentesis_a BOOL Parentesis_c Op_y  Parentesis_a BOOL  Parentesis_c|
+    Parentesis_a BOOL Parentesis_c Op_o  Parentesis_a BOOL  Parentesis_c|
+    Parentesis_a BOOL Parentesis_c Op_xor  Parentesis_a BOOL Parentesis_c|
+
+    BOOL  Op_y  Parentesis_a BOOL  Parentesis_c|
+    BOOL  Op_o  Parentesis_a BOOL  Parentesis_c|
+    BOOL  Op_xor  Parentesis_a BOOL Parentesis_c
+;
+BOOL ::=
+    Identificador Igual_que Identificador|
+    Identificador Diferente_que Identificador|
+    Identificador Menor_que Identificador|
+    Identificador Mayor_que Identificador|
+    Identificador Menor_o_igual Identificador|
+    Identificador Mayor_o_igual Identificador|
+    Numero Igual_que Identificador|
+    Numero Diferente_que Identificador|
+    Numero Menor_que Identificador|
+    Numero Mayor_que Identificador|
+    Numero Menor_o_igual Identificador|
+    Numero Mayor_o_igual Identificador|
+    Identificador Igual_que Numero|
+    Identificador Diferente_que Numero|
+    Identificador Menor_que Numero|
+    Identificador Mayor_que Numero|
+    Identificador Menor_o_igual Numero|
+    Identificador Mayor_o_igual Numero|
+    
+    Numero Diferente_que Numero|
+    Numero Menor_que Numero|
+    Numero Mayor_que Numero|
+    Numero Menor_o_igual Numero|
+    Numero Mayor_o_igual Numero|
+
+    Identificador Igual_que Real|
+    Identificador Diferente_que Real|
+    Identificador Menor_que Real|
+    Identificador Mayor_que Real|
+    Identificador Menor_o_igual Real|
+    Identificador Mayor_o_igual Real|
+
+    Real Igual_que Identificador|
+    Real Diferente_que Identificador|
+    Real Menor_que Identificador|
+    Real Mayor_que Identificador|
+    Real Menor_o_igual Identificador|
+    Real Mayor_o_igual Identificador|
+
+    Real Igual_que Real|
+    Real Diferente_que Real|
+    Real Menor_que Real|
+    Real Mayor_que Real|
+    Real Menor_o_igual Real|
+    Real Mayor_o_igual Real|
+    
+    Numero Igual_que Real|
+    Numero Diferente_que Real|
+    Numero Menor_que Real|
+    Numero Mayor_que Real|
+    Numero Menor_o_igual Real|
+    Numero Mayor_o_igual Real|
+
+    Real Igual_que Numero|
+    Real Diferente_que Numero|
+    Real Menor_que Numero|
+    Real Mayor_que Numero|
+    Real Menor_o_igual Numero|
+    Real Mayor_o_igual Numero|
+    True|
+    False|
+    Numero|
+    Real|
+    Ch|
+    Identificador
+    
+;
+
+SENTENCIA_SWITCH::=
+    Switch Parentesis_a Identificador Parentesis_c Llave_a SENTENCIA_CASE Llave_c|
+    Switch Parentesis_a Numero Parentesis_c Llave_a SENTENCIA_CASE Llave_c|
+    Switch Parentesis_a Real Parentesis_c Llave_a SENTENCIA_CASE Llave_c|
+    Switch Parentesis_a Ch Parentesis_c Llave_a SENTENCIA_CASE Llave_c|
+    Switch Parentesis_a Str Parentesis_c Llave_a SENTENCIA_CASE Llave_c|
+    Switch Parentesis_a True Parentesis_c Llave_a SENTENCIA_CASE Llave_c|
+    Switch Parentesis_a False Parentesis_c Llave_a SENTENCIA_CASE Llave_c
+;
+SENTENCIA_CASE ::=
+    Case Numero Dos_puntos SENTENCIA|
+    Case Real Dos_puntos SENTENCIA|
+    Case Ch Dos_puntos SENTENCIA|
+    Case Str Dos_puntos SENTENCIA|
+    Case True Dos_puntos SENTENCIA|
+    Case False Dos_puntos SENTENCIA|
+
+    Case Numero Dos_puntos SENTENCIA Break|
+    Case Real Dos_puntos SENTENCIA Break|
+    Case Ch Dos_puntos SENTENCIA Break|
+    Case Str Dos_puntos SENTENCIA Break|
+    Case True Dos_puntos SENTENCIA Break|
+    Case False Dos_puntos SENTENCIA Break|
+
+    Case Numero Dos_puntos SENTENCIA Break SENTENCIA_CASE |
+    Case Real Dos_puntos SENTENCIA Break SENTENCIA_CASE|
+    Case Ch Dos_puntos SENTENCIA Break SENTENCIA_CASE|
+    Case Str Dos_puntos SENTENCIA Break SENTENCIA_CASE|
+    Case True Dos_puntos SENTENCIA Break SENTENCIA_CASE|
+    Case False Dos_puntos SENTENCIA Break SENTENCIA_CASE|
+
+    Case Numero Dos_puntos SENTENCIA  SENTENCIA_CASE|
+    Case Real Dos_puntos SENTENCIA  SENTENCIA_CASE|
+    Case Ch Dos_puntos SENTENCIA  SENTENCIA_CASE|
+    Case Str Dos_puntos SENTENCIA  SENTENCIA_CASE|
+    Case True Dos_puntos SENTENCIA  SENTENCIA_CASE|
+    Case False Dos_puntos SENTENCIA  SENTENCIA_CASE|
+    Default Dos_puntos SENTENCIA
+    SENTENCIA_CASE Linea
+;
+
+SENTENCIA_PARAMETROS::=
+    Int Identificador |
+    Int Identificador Coma SENTENCIA_PARAMETROS
+;
